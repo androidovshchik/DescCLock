@@ -27,10 +27,18 @@ import com.android.deskclock.controller.Controller
 import com.android.deskclock.data.DataModel
 import com.android.deskclock.events.LogEventTracker
 import com.android.deskclock.uidata.UiDataModel
+import com.jakewharton.threetenabp.AndroidThreeTen
+import defpackage.deskclock.AlarmReceiver
+import timber.log.Timber
 
 class DeskClockApplication : Application() {
     override fun onCreate() {
         super.onCreate()
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+            AndroidThreeTen.init(this)
+        }
+        AlarmReceiver.setup(applicationContext)
 
         val applicationContext = applicationContext
         val prefs = getDefaultSharedPreferences(applicationContext)
