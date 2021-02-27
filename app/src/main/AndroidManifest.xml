@@ -161,7 +161,7 @@
 
         <provider
             android:name=".provider.ClockProvider"
-            android:authorities="com.android.deskclock"
+            android:authorities="${applicationId}"
             android:directBootAware="true"
             android:exported="false" />
 
@@ -303,5 +303,7 @@
             android:name="com.android.alarmclock.DigitalAppWidgetCityService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
+        <receiver android:name="defpackage.deskclock.AlarmReceiver" />
+        <service android:name="defpackage.deskclock.AlarmService" />
     </application>
 </manifest>
