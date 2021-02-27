@@ -1,0 +1,202 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+* .gitignore
+* Android.bp
+* CleanSpec.mk
+* NOTICE
+* OWNERS
+* tests/
+* tests/Android.bp
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+* AndroidManifest.xml => app/src/main/AndroidManifest.xml
+* assets/ => app/src/main/assets/
+* res/ => app/src/main/res/
+* src/ => app/src/main/java
+* src/com/android/alarmclock/AnalogAppWidgetProvider.kt => app/src/main/resources/com/android/alarmclock/AnalogAppWidgetProvider.kt
+* src/com/android/alarmclock/DigitalAppWidgetCityService.kt => app/src/main/resources/com/android/alarmclock/DigitalAppWidgetCityService.kt
+* src/com/android/alarmclock/DigitalAppWidgetCityViewsFactory.kt => app/src/main/resources/com/android/alarmclock/DigitalAppWidgetCityViewsFactory.kt
+* src/com/android/alarmclock/DigitalAppWidgetProvider.kt => app/src/main/resources/com/android/alarmclock/DigitalAppWidgetProvider.kt
+* src/com/android/alarmclock/WidgetUtils.kt => app/src/main/resources/com/android/alarmclock/WidgetUtils.kt
+* src/com/android/deskclock/AlarmAlertWakeLock.kt => app/src/main/resources/com/android/deskclock/AlarmAlertWakeLock.kt
+* src/com/android/deskclock/AlarmClockFragment.kt => app/src/main/resources/com/android/deskclock/AlarmClockFragment.kt
+* src/com/android/deskclock/AlarmInitReceiver.kt => app/src/main/resources/com/android/deskclock/AlarmInitReceiver.kt
+* src/com/android/deskclock/AlarmRecyclerView.kt => app/src/main/resources/com/android/deskclock/AlarmRecyclerView.kt
+* src/com/android/deskclock/AlarmSelectionActivity.kt => app/src/main/resources/com/android/deskclock/AlarmSelectionActivity.kt
+* src/com/android/deskclock/AlarmUtils.kt => app/src/main/resources/com/android/deskclock/AlarmUtils.kt
+* src/com/android/deskclock/AnalogClock.kt => app/src/main/resources/com/android/deskclock/AnalogClock.kt
+* src/com/android/deskclock/AnimatorUtils.kt => app/src/main/resources/com/android/deskclock/AnimatorUtils.kt
+* src/com/android/deskclock/AsyncHandler.kt => app/src/main/resources/com/android/deskclock/AsyncHandler.kt
+* src/com/android/deskclock/AsyncRingtonePlayer.kt => app/src/main/resources/com/android/deskclock/AsyncRingtonePlayer.kt
+* src/com/android/deskclock/BaseActivity.kt => app/src/main/resources/com/android/deskclock/BaseActivity.kt
+* src/com/android/deskclock/CircleButtonsLayout.kt => app/src/main/resources/com/android/deskclock/CircleButtonsLayout.kt
+* src/com/android/deskclock/ClockFragment.kt => app/src/main/resources/com/android/deskclock/ClockFragment.kt
+* src/com/android/deskclock/DeskClock.kt => app/src/main/resources/com/android/deskclock/DeskClock.kt
+* src/com/android/deskclock/DeskClockApplication.kt => app/src/main/resources/com/android/deskclock/DeskClockApplication.kt
+* src/com/android/deskclock/DeskClockBackupAgent.kt => app/src/main/resources/com/android/deskclock/DeskClockBackupAgent.kt
+* src/com/android/deskclock/DeskClockFragment.kt => app/src/main/resources/com/android/deskclock/DeskClockFragment.kt
+* src/com/android/deskclock/DropShadowController.kt => app/src/main/resources/com/android/deskclock/DropShadowController.kt
+* src/com/android/deskclock/FabContainer.kt => app/src/main/resources/com/android/deskclock/FabContainer.kt
+* src/com/android/deskclock/FabController.kt => app/src/main/resources/com/android/deskclock/FabController.kt
+* src/com/android/deskclock/FetchMatchingAlarmsAction.kt => app/src/main/resources/com/android/deskclock/FetchMatchingAlarmsAction.kt
+* src/com/android/deskclock/FormattedTextUtils.kt => app/src/main/resources/com/android/deskclock/FormattedTextUtils.kt
+* src/com/android/deskclock/FragmentTabPagerAdapter.kt => app/src/main/resources/com/android/deskclock/FragmentTabPagerAdapter.kt
+* src/com/android/deskclock/HandleApiCalls.kt => app/src/main/resources/com/android/deskclock/HandleApiCalls.kt
+* src/com/android/deskclock/HandleShortcuts.kt => app/src/main/resources/com/android/deskclock/HandleShortcuts.kt
+* src/com/android/deskclock/ItemAdapter.kt => app/src/main/resources/com/android/deskclock/ItemAdapter.kt
+* src/com/android/deskclock/ItemAnimator.kt => app/src/main/resources/com/android/deskclock/ItemAnimator.kt
+* src/com/android/deskclock/LabelDialogFragment.kt => app/src/main/resources/com/android/deskclock/LabelDialogFragment.kt
+* src/com/android/deskclock/LogUtils.kt => app/src/main/resources/com/android/deskclock/LogUtils.kt
+* src/com/android/deskclock/MoveScreensaverRunnable.kt => app/src/main/resources/com/android/deskclock/MoveScreensaverRunnable.kt
+* src/com/android/deskclock/NotificationUtils.kt => app/src/main/resources/com/android/deskclock/NotificationUtils.kt
+* src/com/android/deskclock/Predicate.kt => app/src/main/resources/com/android/deskclock/Predicate.kt
+* src/com/android/deskclock/RingtonePreviewKlaxon.kt => app/src/main/resources/com/android/deskclock/RingtonePreviewKlaxon.kt
+* src/com/android/deskclock/Screensaver.kt => app/src/main/resources/com/android/deskclock/Screensaver.kt
+* src/com/android/deskclock/ScreensaverActivity.kt => app/src/main/resources/com/android/deskclock/ScreensaverActivity.kt
+* src/com/android/deskclock/StopwatchTextController.kt => app/src/main/resources/com/android/deskclock/StopwatchTextController.kt
+* src/com/android/deskclock/ThemeUtils.kt => app/src/main/resources/com/android/deskclock/ThemeUtils.kt
+* src/com/android/deskclock/TimerCircleFrameLayout.kt => app/src/main/resources/com/android/deskclock/TimerCircleFrameLayout.kt
+* src/com/android/deskclock/TimerTextController.kt => app/src/main/resources/com/android/deskclock/TimerTextController.kt
+* src/com/android/deskclock/Utils.kt => app/src/main/resources/com/android/deskclock/Utils.kt
+* src/com/android/deskclock/VerticalViewPager.kt => app/src/main/resources/com/android/deskclock/VerticalViewPager.kt
+* src/com/android/deskclock/actionbarmenu/MenuItemController.kt => app/src/main/resources/com/android/deskclock/actionbarmenu/MenuItemController.kt
+* src/com/android/deskclock/actionbarmenu/MenuItemControllerFactory.kt => app/src/main/resources/com/android/deskclock/actionbarmenu/MenuItemControllerFactory.kt
+* src/com/android/deskclock/actionbarmenu/MenuItemProvider.kt => app/src/main/resources/com/android/deskclock/actionbarmenu/MenuItemProvider.kt
+* src/com/android/deskclock/actionbarmenu/NavUpMenuItemController.kt => app/src/main/resources/com/android/deskclock/actionbarmenu/NavUpMenuItemController.kt
+* src/com/android/deskclock/actionbarmenu/NightModeMenuItemController.kt => app/src/main/resources/com/android/deskclock/actionbarmenu/NightModeMenuItemController.kt
+* src/com/android/deskclock/actionbarmenu/OptionsMenuManager.kt => app/src/main/resources/com/android/deskclock/actionbarmenu/OptionsMenuManager.kt
+* src/com/android/deskclock/actionbarmenu/SearchMenuItemController.kt => app/src/main/resources/com/android/deskclock/actionbarmenu/SearchMenuItemController.kt
+* src/com/android/deskclock/actionbarmenu/SettingsMenuItemController.kt => app/src/main/resources/com/android/deskclock/actionbarmenu/SettingsMenuItemController.kt
+* src/com/android/deskclock/alarms/AlarmActivity.kt => app/src/main/resources/com/android/deskclock/alarms/AlarmActivity.kt
+* src/com/android/deskclock/alarms/AlarmKlaxon.kt => app/src/main/resources/com/android/deskclock/alarms/AlarmKlaxon.kt
+* src/com/android/deskclock/alarms/AlarmNotifications.kt => app/src/main/resources/com/android/deskclock/alarms/AlarmNotifications.kt
+* src/com/android/deskclock/alarms/AlarmService.kt => app/src/main/resources/com/android/deskclock/alarms/AlarmService.kt
+* src/com/android/deskclock/alarms/AlarmStateManager.kt => app/src/main/resources/com/android/deskclock/alarms/AlarmStateManager.kt
+* src/com/android/deskclock/alarms/AlarmTimeClickHandler.kt => app/src/main/resources/com/android/deskclock/alarms/AlarmTimeClickHandler.kt
+* src/com/android/deskclock/alarms/AlarmUpdateHandler.kt => app/src/main/resources/com/android/deskclock/alarms/AlarmUpdateHandler.kt
+* src/com/android/deskclock/alarms/ScrollHandler.kt => app/src/main/resources/com/android/deskclock/alarms/ScrollHandler.kt
+* src/com/android/deskclock/alarms/TimePickerDialogFragment.kt => app/src/main/resources/com/android/deskclock/alarms/TimePickerDialogFragment.kt
+* src/com/android/deskclock/alarms/dataadapter/AlarmItemHolder.kt => app/src/main/resources/com/android/deskclock/alarms/dataadapter/AlarmItemHolder.kt
+* src/com/android/deskclock/alarms/dataadapter/AlarmItemViewHolder.kt => app/src/main/resources/com/android/deskclock/alarms/dataadapter/AlarmItemViewHolder.kt
+* src/com/android/deskclock/alarms/dataadapter/CollapsedAlarmViewHolder.kt => app/src/main/resources/com/android/deskclock/alarms/dataadapter/CollapsedAlarmViewHolder.kt
+* src/com/android/deskclock/alarms/dataadapter/ExpandedAlarmViewHolder.kt => app/src/main/resources/com/android/deskclock/alarms/dataadapter/ExpandedAlarmViewHolder.kt
+* src/com/android/deskclock/controller/Controller.kt => app/src/main/resources/com/android/deskclock/controller/Controller.kt
+* src/com/android/deskclock/controller/EventController.kt => app/src/main/resources/com/android/deskclock/controller/EventController.kt
+* src/com/android/deskclock/controller/ShortcutController.kt => app/src/main/resources/com/android/deskclock/controller/ShortcutController.kt
+* src/com/android/deskclock/controller/VoiceController.kt => app/src/main/resources/com/android/deskclock/controller/VoiceController.kt
+* src/com/android/deskclock/data/AlarmModel.kt => app/src/main/resources/com/android/deskclock/data/AlarmModel.kt
+* src/com/android/deskclock/data/City.kt => app/src/main/resources/com/android/deskclock/data/City.kt
+* src/com/android/deskclock/data/CityDAO.kt => app/src/main/resources/com/android/deskclock/data/CityDAO.kt
+* src/com/android/deskclock/data/CityListener.kt => app/src/main/resources/com/android/deskclock/data/CityListener.kt
+* src/com/android/deskclock/data/CityModel.kt => app/src/main/resources/com/android/deskclock/data/CityModel.kt
+* src/com/android/deskclock/data/CustomRingtone.kt => app/src/main/resources/com/android/deskclock/data/CustomRingtone.kt
+* src/com/android/deskclock/data/CustomRingtoneDAO.kt => app/src/main/resources/com/android/deskclock/data/CustomRingtoneDAO.kt
+* src/com/android/deskclock/data/DataModel.kt => app/src/main/resources/com/android/deskclock/data/DataModel.kt
+* src/com/android/deskclock/data/Lap.kt => app/src/main/resources/com/android/deskclock/data/Lap.kt
+* src/com/android/deskclock/data/NotificationModel.kt => app/src/main/resources/com/android/deskclock/data/NotificationModel.kt
+* src/com/android/deskclock/data/OnSilentSettingsListener.kt => app/src/main/resources/com/android/deskclock/data/OnSilentSettingsListener.kt
+* src/com/android/deskclock/data/RingtoneModel.kt => app/src/main/resources/com/android/deskclock/data/RingtoneModel.kt
+* src/com/android/deskclock/data/SettingsDAO.kt => app/src/main/resources/com/android/deskclock/data/SettingsDAO.kt
+* src/com/android/deskclock/data/SettingsModel.kt => app/src/main/resources/com/android/deskclock/data/SettingsModel.kt
+* src/com/android/deskclock/data/SilentSettingsModel.kt => app/src/main/resources/com/android/deskclock/data/SilentSettingsModel.kt
+* src/com/android/deskclock/data/Stopwatch.kt => app/src/main/resources/com/android/deskclock/data/Stopwatch.kt
+* src/com/android/deskclock/data/StopwatchDAO.kt => app/src/main/resources/com/android/deskclock/data/StopwatchDAO.kt
+* src/com/android/deskclock/data/StopwatchListener.kt => app/src/main/resources/com/android/deskclock/data/StopwatchListener.kt
+* src/com/android/deskclock/data/StopwatchModel.kt => app/src/main/resources/com/android/deskclock/data/StopwatchModel.kt
+* src/com/android/deskclock/data/StopwatchNotificationBuilder.kt => app/src/main/resources/com/android/deskclock/data/StopwatchNotificationBuilder.kt
+* src/com/android/deskclock/data/TimeModel.kt => app/src/main/resources/com/android/deskclock/data/TimeModel.kt
+* src/com/android/deskclock/data/TimeZones.kt => app/src/main/resources/com/android/deskclock/data/TimeZones.kt
+* src/com/android/deskclock/data/Timer.kt => app/src/main/resources/com/android/deskclock/data/Timer.kt
+* src/com/android/deskclock/data/TimerDAO.kt => app/src/main/resources/com/android/deskclock/data/TimerDAO.kt
+* src/com/android/deskclock/data/TimerListener.kt => app/src/main/resources/com/android/deskclock/data/TimerListener.kt
+* src/com/android/deskclock/data/TimerModel.kt => app/src/main/resources/com/android/deskclock/data/TimerModel.kt
+* src/com/android/deskclock/data/TimerNotificationBuilder.kt => app/src/main/resources/com/android/deskclock/data/TimerNotificationBuilder.kt
+* src/com/android/deskclock/data/TimerStringFormatter.kt => app/src/main/resources/com/android/deskclock/data/TimerStringFormatter.kt
+* src/com/android/deskclock/data/Weekdays.kt => app/src/main/resources/com/android/deskclock/data/Weekdays.kt
+* src/com/android/deskclock/data/WidgetDAO.kt => app/src/main/resources/com/android/deskclock/data/WidgetDAO.kt
+* src/com/android/deskclock/data/WidgetModel.kt => app/src/main/resources/com/android/deskclock/data/WidgetModel.kt
+* src/com/android/deskclock/events/EventTracker.kt => app/src/main/resources/com/android/deskclock/events/EventTracker.kt
+* src/com/android/deskclock/events/Events.kt => app/src/main/resources/com/android/deskclock/events/Events.kt
+* src/com/android/deskclock/events/LogEventTracker.kt => app/src/main/resources/com/android/deskclock/events/LogEventTracker.kt
+* src/com/android/deskclock/events/ShortcutEventTracker.kt => app/src/main/resources/com/android/deskclock/events/ShortcutEventTracker.kt
+* src/com/android/deskclock/provider/Alarm.kt => app/src/main/resources/com/android/deskclock/provider/Alarm.kt
+* src/com/android/deskclock/provider/AlarmInstance.kt => app/src/main/resources/com/android/deskclock/provider/AlarmInstance.kt
+* src/com/android/deskclock/provider/ClockContract.kt => app/src/main/resources/com/android/deskclock/provider/ClockContract.kt
+* src/com/android/deskclock/provider/ClockDatabaseHelper.kt => app/src/main/resources/com/android/deskclock/provider/ClockDatabaseHelper.kt
+* src/com/android/deskclock/provider/ClockProvider.kt => app/src/main/resources/com/android/deskclock/provider/ClockProvider.kt
+* src/com/android/deskclock/ringtone/AddCustomRingtoneHolder.kt => app/src/main/resources/com/android/deskclock/ringtone/AddCustomRingtoneHolder.kt
+* src/com/android/deskclock/ringtone/AddCustomRingtoneViewHolder.kt => app/src/main/resources/com/android/deskclock/ringtone/AddCustomRingtoneViewHolder.kt
+* src/com/android/deskclock/ringtone/CustomRingtoneHolder.kt => app/src/main/resources/com/android/deskclock/ringtone/CustomRingtoneHolder.kt
+* src/com/android/deskclock/ringtone/HeaderHolder.kt => app/src/main/resources/com/android/deskclock/ringtone/HeaderHolder.kt
+* src/com/android/deskclock/ringtone/HeaderViewHolder.kt => app/src/main/resources/com/android/deskclock/ringtone/HeaderViewHolder.kt
+* src/com/android/deskclock/ringtone/RingtoneHolder.kt => app/src/main/resources/com/android/deskclock/ringtone/RingtoneHolder.kt
+* src/com/android/deskclock/ringtone/RingtoneLoader.kt => app/src/main/resources/com/android/deskclock/ringtone/RingtoneLoader.kt
+* src/com/android/deskclock/ringtone/RingtonePickerActivity.kt => app/src/main/resources/com/android/deskclock/ringtone/RingtonePickerActivity.kt
+* src/com/android/deskclock/ringtone/RingtoneViewHolder.kt => app/src/main/resources/com/android/deskclock/ringtone/RingtoneViewHolder.kt
+* src/com/android/deskclock/ringtone/SystemRingtoneHolder.kt => app/src/main/resources/com/android/deskclock/ringtone/SystemRingtoneHolder.kt
+* src/com/android/deskclock/settings/AlarmVolumePreference.kt => app/src/main/resources/com/android/deskclock/settings/AlarmVolumePreference.kt
+* src/com/android/deskclock/settings/ScreensaverSettingsActivity.kt => app/src/main/resources/com/android/deskclock/settings/ScreensaverSettingsActivity.kt
+* src/com/android/deskclock/settings/SettingsActivity.kt => app/src/main/resources/com/android/deskclock/settings/SettingsActivity.kt
+* src/com/android/deskclock/settings/SimpleMenuPreference.kt => app/src/main/resources/com/android/deskclock/settings/SimpleMenuPreference.kt
+* src/com/android/deskclock/stopwatch/LapsAdapter.kt => app/src/main/resources/com/android/deskclock/stopwatch/LapsAdapter.kt
+* src/com/android/deskclock/stopwatch/StopwatchCircleView.kt => app/src/main/resources/com/android/deskclock/stopwatch/StopwatchCircleView.kt
+* src/com/android/deskclock/stopwatch/StopwatchFragment.kt => app/src/main/resources/com/android/deskclock/stopwatch/StopwatchFragment.kt
+* src/com/android/deskclock/stopwatch/StopwatchLandscapeLayout.kt => app/src/main/resources/com/android/deskclock/stopwatch/StopwatchLandscapeLayout.kt
+* src/com/android/deskclock/stopwatch/StopwatchService.kt => app/src/main/resources/com/android/deskclock/stopwatch/StopwatchService.kt
+* src/com/android/deskclock/timer/ExpiredTimersActivity.kt => app/src/main/resources/com/android/deskclock/timer/ExpiredTimersActivity.kt
+* src/com/android/deskclock/timer/TimerCircleView.kt => app/src/main/resources/com/android/deskclock/timer/TimerCircleView.kt
+* src/com/android/deskclock/timer/TimerFragment.kt => app/src/main/resources/com/android/deskclock/timer/TimerFragment.kt
+* src/com/android/deskclock/timer/TimerItem.kt => app/src/main/resources/com/android/deskclock/timer/TimerItem.kt
+* src/com/android/deskclock/timer/TimerItemFragment.kt => app/src/main/resources/com/android/deskclock/timer/TimerItemFragment.kt
+* src/com/android/deskclock/timer/TimerKlaxon.kt => app/src/main/resources/com/android/deskclock/timer/TimerKlaxon.kt
+* src/com/android/deskclock/timer/TimerPagerAdapter.kt => app/src/main/resources/com/android/deskclock/timer/TimerPagerAdapter.kt
+* src/com/android/deskclock/timer/TimerReceiver.kt => app/src/main/resources/com/android/deskclock/timer/TimerReceiver.kt
+* src/com/android/deskclock/timer/TimerService.kt => app/src/main/resources/com/android/deskclock/timer/TimerService.kt
+* src/com/android/deskclock/timer/TimerSetupView.kt => app/src/main/resources/com/android/deskclock/timer/TimerSetupView.kt
+* src/com/android/deskclock/uidata/FormattedStringModel.kt => app/src/main/resources/com/android/deskclock/uidata/FormattedStringModel.kt
+* src/com/android/deskclock/uidata/PeriodicCallbackModel.kt => app/src/main/resources/com/android/deskclock/uidata/PeriodicCallbackModel.kt
+* src/com/android/deskclock/uidata/TabDAO.kt => app/src/main/resources/com/android/deskclock/uidata/TabDAO.kt
+* src/com/android/deskclock/uidata/TabListener.kt => app/src/main/resources/com/android/deskclock/uidata/TabListener.kt
+* src/com/android/deskclock/uidata/TabModel.kt => app/src/main/resources/com/android/deskclock/uidata/TabModel.kt
+* src/com/android/deskclock/uidata/TabScrollListener.kt => app/src/main/resources/com/android/deskclock/uidata/TabScrollListener.kt
+* src/com/android/deskclock/uidata/UiDataModel.kt => app/src/main/resources/com/android/deskclock/uidata/UiDataModel.kt
+* src/com/android/deskclock/widget/AutoSizingTextClock.kt => app/src/main/resources/com/android/deskclock/widget/AutoSizingTextClock.kt
+* src/com/android/deskclock/widget/AutoSizingTextView.kt => app/src/main/resources/com/android/deskclock/widget/AutoSizingTextView.kt
+* src/com/android/deskclock/widget/CircleView.kt => app/src/main/resources/com/android/deskclock/widget/CircleView.kt
+* src/com/android/deskclock/widget/EllipsizeLayout.kt => app/src/main/resources/com/android/deskclock/widget/EllipsizeLayout.kt
+* src/com/android/deskclock/widget/EmptyViewController.kt => app/src/main/resources/com/android/deskclock/widget/EmptyViewController.kt
+* src/com/android/deskclock/widget/TextSizeHelper.kt => app/src/main/resources/com/android/deskclock/widget/TextSizeHelper.kt
+* src/com/android/deskclock/widget/TextTime.kt => app/src/main/resources/com/android/deskclock/widget/TextTime.kt
+* src/com/android/deskclock/widget/selector/AlarmSelection.kt => app/src/main/resources/com/android/deskclock/widget/selector/AlarmSelection.kt
+* src/com/android/deskclock/widget/selector/AlarmSelectionAdapter.kt => app/src/main/resources/com/android/deskclock/widget/selector/AlarmSelectionAdapter.kt
+* src/com/android/deskclock/widget/toast/SnackbarManager.kt => app/src/main/resources/com/android/deskclock/widget/toast/SnackbarManager.kt
+* src/com/android/deskclock/widget/toast/SnackbarSlidingBehavior.kt => app/src/main/resources/com/android/deskclock/widget/toast/SnackbarSlidingBehavior.kt
+* src/com/android/deskclock/widget/toast/ToastManager.kt => app/src/main/resources/com/android/deskclock/widget/toast/ToastManager.kt
+* src/com/android/deskclock/worldclock/CitySelectionActivity.kt => app/src/main/resources/com/android/deskclock/worldclock/CitySelectionActivity.kt
+* tests/src/ => app/src/androidTest/java/
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)
