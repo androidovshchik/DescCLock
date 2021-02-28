@@ -16,13 +16,16 @@
 
 package com.android.deskclock
 
+import android.Manifest
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
+import android.app.AppOpsManager
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
+import android.os.Process
 import android.provider.Settings
 import android.text.format.DateUtils
 import android.view.KeyEvent
@@ -53,6 +56,8 @@ import com.android.deskclock.uidata.UiDataModel
 import com.android.deskclock.widget.toast.SnackbarManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
+import defpackage.deskclock.isGranted
+import org.jetbrains.anko.appOpsManager
 import org.jetbrains.anko.powerManager
 
 /**
@@ -283,8 +288,16 @@ class DeskClock : BaseActivity(), FabContainer, AlarmLabelDialogHandler {
         super.onStart()
         DataModel.dataModel.addSilentSettingsListener(mSilentSettingChangeWatcher)
         DataModel.dataModel.isApplicationInForeground = true
-
-        if (!powerManager.isIgnoringBatteryOptimizations(packageName)) {
+        val mode = appOpsManager.checkOpNoThrow(
+            AppOpsManager.OPSTR_GET_USAGE_STATS,
+            Process.myUid(),
+            packageName
+        )
+        if (mode != AppOpsManager.MODE_ALLOWED && (mode != AppOpsManager.MODE_DEFAULT ||
+                !isGranted(Manifest.permission.PACKAGE_USAGE_STATS))
+        ) {
+            startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
+        } else if (!powerManager.isIgnoringBatteryOptimizations(packageName)) {
             startActivityForResult(
                 Intent(
                     Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
