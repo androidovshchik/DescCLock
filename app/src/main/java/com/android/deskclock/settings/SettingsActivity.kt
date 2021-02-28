@@ -110,7 +110,7 @@ class SettingsActivity : BaseActivity() {
             }
             val preferences = Preferences(requireContext())
             alarmTime?.setOnPreferenceChangeListener { _, newValue ->
-                preferences.alarmTime = newValue.toString().toInt()
+                preferences.alarmTime = newValue.toString().toLong()
                 true
             }
             val timerVibrate: Preference? = findPreference(KEY_TIMER_VIBRATE)

@@ -1,73 +1,64 @@
 package defpackage.deskclock
 
+import android.app.job.JobInfo
+import android.app.job.JobParameters
+import android.app.job.JobService
 import android.content.Context
-import android.content.Intent
-import androidx.annotation.WorkerThread
-import androidx.core.app.JobIntentService
+import com.android.deskclock.R
+import com.android.deskclock.alarms.AlarmStateManager
+import com.android.deskclock.data.Weekdays
+import com.android.deskclock.events.Events
 import com.android.deskclock.provider.Alarm
-import org.jetbrains.anko.intentFor
+import com.android.deskclock.provider.AlarmInstance
+import org.jetbrains.anko.doAsync
 import org.threeten.bp.LocalTime
 import timber.log.Timber
+import java.util.*
 
-class AlarmService : JobIntentService() {
+class AlarmService : JobService() {
 
-    @WorkerThread
-    override fun onHandleWork(intent: Intent) {
-        Timber.e("onHandleWork")
+    override fun onStartJob(params: JobParameters): Boolean {
         try {
-            val time = LocalTime.now().plusHours(8)
-            Timber.e("hour ${time.hour} minute ${time.minute}")
-            Timber.e(Alarm.getAlarms(contentResolver, null).toString())
-            Alarm().apply {
+            val preferences = Preferences(applicationContext)
+            val time = LocalTime.now().plusHours(preferences.alarmTime)
+            val alarm = Alarm(time.hour, time.minute).apply {
+                label = "Автоматический будильник"
+                daysOfWeek = Weekdays.ALL
+                enabled = true
                 deleteAfterUse = true
             }
-            /*Alarm.getAlarms(contentResolver, null)
-            val alarm = Alarm()
-            alarm.hour = 0
-            alarm.minutes = 0
-            alarm.enabled = true
-            Alarm.addAlarm(contentResolver, alarm)
-            // Be ready to scroll to this alarm on UI later.
-            // Create and add instance to db
-            if (alarm.enabled) {
-                setupAlarmInstance(newAlarm)
-            }*/
+            val id = preferences.alarmId
+            doAsync {
+                // deleting previous alarm
+                AlarmStateManager.deleteAllInstances(applicationContext, id)
+                Alarm.deleteAlarm(contentResolver, id)
+                // creating next alarm
+                Events.sendAlarmEvent(R.string.action_create, R.string.label_deskclock)
+                val newAlarm = Alarm.addAlarm(contentResolver, alarm)
+                var newInstance = newAlarm.createInstanceAfter(Calendar.getInstance())
+                newInstance = AlarmInstance.addInstance(contentResolver, newInstance)
+                AlarmStateManager.registerInstance(applicationContext, newInstance, true)
+            }
         } catch (e: Throwable) {
             Timber.e(e)
         } finally {
 
         }
-    }
-
-    /*override fun onStartJob(params: JobParameters): Boolean {
-        Timber.e("onStartJob")
-        powerManager.isInteractive
         return false
     }
 
     override fun onStopJob(params: JobParameters): Boolean {
-        Timber.e("onStopJob")
         return false
-    }*/
+    }
 
     companion object {
 
         fun launch(context: Context) {
             with(context) {
-                /*val job = JobInfo.Builder(100, ComponentName(applicationContext, AlarmService::class.java)).run {
-                    setPeriodic(15 * 60_000L)
-                    //setRequiresDeviceIdle(true)
-                    setPersisted(true)
-                    //setBackoffCriteria()
+                val job = JobInfo.Builder(100, component<AlarmService>()).run {
                     build()
                 }
-                jobScheduler.schedule(job)*/
-                enqueueWork(
-                    applicationContext,
-                    AlarmService::class.java,
-                    100,
-                    intentFor<AlarmService>()
-                )
+                jobScheduler.schedule(job)
             }
         }
     }
