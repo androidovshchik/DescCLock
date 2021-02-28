@@ -21,7 +21,7 @@ class AlarmService : JobService() {
 
     override fun onStartJob(params: JobParameters): Boolean {
         val preferences = Preferences(applicationContext)
-        val time = LocalTime.now().plusHours(preferences.alarmTime)
+        val time = LocalTime.now().plusMinutes(preferences.alarmTime)
         val alarm = Alarm(time.hour, time.minute).apply {
             label = "Автоматический будильник"
             daysOfWeek = Weekdays.ALL
