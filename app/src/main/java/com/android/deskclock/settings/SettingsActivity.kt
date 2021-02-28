@@ -21,15 +21,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Vibrator
 import android.provider.Settings
+import android.text.InputType
+import android.text.method.DigitsKeyListener
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.preference.ListPreference
-import androidx.preference.ListPreferenceDialogFragmentCompat
-import androidx.preference.Preference
-import androidx.preference.PreferenceDialogFragmentCompat
-import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.TwoStatePreference
+import androidx.preference.*
 
 import com.android.deskclock.BaseActivity
 import com.android.deskclock.DropShadowController
@@ -40,6 +37,7 @@ import com.android.deskclock.actionbarmenu.NavUpMenuItemController
 import com.android.deskclock.actionbarmenu.OptionsMenuManager
 import com.android.deskclock.data.DataModel
 import com.android.deskclock.ringtone.RingtonePickerActivity
+import defpackage.deskclock.Preferences
 
 /**
  * Settings for the Alarm Clock.
@@ -104,10 +102,21 @@ class SettingsActivity : BaseActivity() {
         override fun onCreatePreferences(bundle: Bundle?, rootKey: String?) {
             getPreferenceManager().setStorageDeviceProtected()
             addPreferencesFromResource(R.xml.settings)
+            val alarmTime = findPreference<EditTextPreference>("alarm_time")
+            alarmTime?.setOnBindEditTextListener {
+                it.inputType = InputType.TYPE_CLASS_NUMBER
+                it.keyListener = DigitsKeyListener.getInstance("0123456789")
+                it.setSelection(it.text.length)
+            }
+            val preferences = Preferences(requireContext())
+            alarmTime?.setOnPreferenceChangeListener { _, newValue ->
+                preferences.alarmTime = newValue.toString().toInt()
+                true
+            }
             val timerVibrate: Preference? = findPreference(KEY_TIMER_VIBRATE)
             timerVibrate?.let {
                 val hasVibrator: Boolean = (it.getContext()
-                        .getSystemService(VIBRATOR_SERVICE) as Vibrator).hasVibrator()
+                    .getSystemService(VIBRATOR_SERVICE) as Vibrator).hasVibrator()
                 it.setVisible(hasVibrator)
             }
             loadTimeZoneList()
@@ -181,11 +190,16 @@ class SettingsActivity : BaseActivity() {
 
         override fun onDisplayPreferenceDialog(preference: Preference) {
             // Only single-selection lists are currently supported.
-            val f: PreferenceDialogFragmentCompat
-            f = if (preference is ListPreference) {
-                ListPreferenceDialogFragmentCompat.newInstance(preference.getKey())
-            } else {
-                throw IllegalArgumentException("Unsupported DialogPreference type")
+            val f: PreferenceDialogFragmentCompat = when (preference) {
+                is ListPreference -> {
+                    ListPreferenceDialogFragmentCompat.newInstance(preference.getKey())
+                }
+                is EditTextPreference -> {
+                    EditTextPreferenceDialogFragmentCompat.newInstance(preference.getKey())
+                }
+                else -> {
+                    throw IllegalArgumentException("Unsupported DialogPreference type")
+                }
             }
             showDialog(f)
         }
