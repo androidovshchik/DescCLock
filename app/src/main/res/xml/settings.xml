@@ -20,7 +20,7 @@
         <EditTextPreference
             android:defaultValue="480"
             android:key="alarm_time"
-            android:summary="По-умолчанию, 8*60 минут"
+            android:summary="По-умолчанию, 8 * 60 минут"
             android:title="Время до срабатывания" />
 
     </PreferenceCategory>
