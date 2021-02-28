@@ -21,9 +21,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.content.Intent
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
 import android.text.format.DateUtils
 import android.view.KeyEvent
 import android.view.Menu
@@ -53,7 +51,6 @@ import com.android.deskclock.uidata.UiDataModel
 import com.android.deskclock.widget.toast.SnackbarManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
-import org.jetbrains.anko.powerManager
 
 /**
  * The main activity of the application which displays 4 different tabs contains alarms, world
@@ -283,15 +280,6 @@ class DeskClock : BaseActivity(), FabContainer, AlarmLabelDialogHandler {
         super.onStart()
         DataModel.dataModel.addSilentSettingsListener(mSilentSettingChangeWatcher)
         DataModel.dataModel.isApplicationInForeground = true
-
-        if (!powerManager.isIgnoringBatteryOptimizations(packageName)) {
-            startActivityForResult(
-                Intent(
-                    Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
-                    Uri.fromParts("package", packageName, null)
-                ), 100
-            )
-        }
     }
 
     override fun onResume() {
