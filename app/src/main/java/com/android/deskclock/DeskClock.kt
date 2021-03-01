@@ -53,6 +53,8 @@ import com.android.deskclock.uidata.UiDataModel
 import com.android.deskclock.widget.toast.SnackbarManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
+import defpackage.deskclock.ForegroundService
+import defpackage.deskclock.Preferences
 import org.jetbrains.anko.powerManager
 
 /**
@@ -291,6 +293,11 @@ class DeskClock : BaseActivity(), FabContainer, AlarmLabelDialogHandler {
                     Uri.fromParts("package", packageName, null)
                 ), 100
             )
+        }
+
+        val preferences = Preferences(applicationContext)
+        if (preferences.runService) {
+            ForegroundService.start(applicationContext)
         }
     }
 

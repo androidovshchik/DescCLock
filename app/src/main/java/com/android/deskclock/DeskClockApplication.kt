@@ -22,13 +22,11 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
 import android.preference.PreferenceManager
-
 import com.android.deskclock.controller.Controller
 import com.android.deskclock.data.DataModel
 import com.android.deskclock.events.LogEventTracker
 import com.android.deskclock.uidata.UiDataModel
 import com.jakewharton.threetenabp.AndroidThreeTen
-import defpackage.deskclock.AlarmService
 import timber.log.Timber
 
 class DeskClockApplication : Application() {
@@ -36,8 +34,6 @@ class DeskClockApplication : Application() {
         super.onCreate()
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
-            // debugging
-            AlarmService.launch(applicationContext)
         }
         AndroidThreeTen.init(this)
 
