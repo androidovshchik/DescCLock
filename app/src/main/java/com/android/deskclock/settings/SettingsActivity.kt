@@ -27,7 +27,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.preference.*
-
 import com.android.deskclock.BaseActivity
 import com.android.deskclock.DropShadowController
 import com.android.deskclock.R
@@ -37,6 +36,7 @@ import com.android.deskclock.actionbarmenu.NavUpMenuItemController
 import com.android.deskclock.actionbarmenu.OptionsMenuManager
 import com.android.deskclock.data.DataModel
 import com.android.deskclock.ringtone.RingtonePickerActivity
+import defpackage.deskclock.ForegroundService
 import defpackage.deskclock.Preferences
 
 /**
@@ -103,6 +103,7 @@ class SettingsActivity : BaseActivity() {
             getPreferenceManager().setStorageDeviceProtected()
             addPreferencesFromResource(R.xml.settings)
             val alarmTime = findPreference<EditTextPreference>("alarm_time")
+            val runService = findPreference<SwitchPreferenceCompat>("run_service")
             alarmTime?.setOnBindEditTextListener {
                 it.inputType = InputType.TYPE_CLASS_NUMBER
                 it.keyListener = DigitsKeyListener.getInstance("0123456789")
@@ -111,6 +112,15 @@ class SettingsActivity : BaseActivity() {
             val preferences = Preferences(requireContext())
             alarmTime?.setOnPreferenceChangeListener { _, newValue ->
                 preferences.alarmTime = newValue.toString().toLong()
+                true
+            }
+            runService?.setOnPreferenceChangeListener { _, newValue ->
+                preferences.runService = newValue == true
+                if (newValue == true) {
+                    ForegroundService.start(context)
+                } else {
+                    ForegroundService.stop(context)
+                }
                 true
             }
             val timerVibrate: Preference? = findPreference(KEY_TIMER_VIBRATE)

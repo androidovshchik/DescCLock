@@ -55,6 +55,7 @@ class AlarmService : JobService() {
         fun launch(context: Context) {
             with(context) {
                 val job = JobInfo.Builder(100, component<AlarmService>()).run {
+                    setOverrideDeadline(0)
                     build()
                 }
                 jobScheduler.schedule(job)

@@ -25,6 +25,8 @@ import com.android.deskclock.AlarmAlertWakeLock.createPartialWakeLock
 import com.android.deskclock.alarms.AlarmStateManager
 import com.android.deskclock.controller.Controller
 import com.android.deskclock.data.DataModel
+import defpackage.deskclock.ForegroundService
+import defpackage.deskclock.Preferences
 
 class AlarmInitReceiver : BroadcastReceiver() {
     /**
@@ -73,6 +75,13 @@ class AlarmInitReceiver : BroadcastReceiver() {
         if (Intent.ACTION_MY_PACKAGE_REPLACED == action) {
             DataModel.dataModel.updateAllNotifications()
             Controller.getController().updateShortcuts()
+        }
+
+        if (Intent.ACTION_BOOT_COMPLETED == action) {
+            val preferences = Preferences(context)
+            if (preferences.runService) {
+                ForegroundService.start(context)
+            }
         }
 
         AsyncHandler.post {

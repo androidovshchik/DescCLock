@@ -25,8 +25,7 @@ class ForegroundService : Service() {
             NotificationCompat.Builder(
                 applicationContext,
                 NotificationUtils.ALARM_SNOOZE_NOTIFICATION_CHANNEL_ID
-            )
-                .setSmallIcon(R.drawable.ic_alarm)
+            ).setSmallIcon(R.drawable.ic_alarm)
                 .setContentTitle("Фоновой сервис")
                 .setContentIntent(pendingActivityFor<DeskClock>())
                 .setOngoing(true)
@@ -60,7 +59,7 @@ class ForegroundService : Service() {
             }
         }
 
-        private fun stop(context: Context?) {
+        fun stop(context: Context?) {
             context?.run {
                 stopService(intentFor<ForegroundService>())
             }
