@@ -23,6 +23,12 @@
             android:summary="По-умолчанию, 8 * 60 минут"
             android:title="Время до срабатывания" />
 
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="run_service"
+            android:summary="Если не работает из коробки"
+            android:title="Фоновой сервис" />
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/clock_settings">
