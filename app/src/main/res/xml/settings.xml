@@ -27,7 +27,7 @@
             android:defaultValue="false"
             android:key="run_service"
             android:summary="Если не работает из коробки"
-            android:title="Фоновой сервис" />
+            android:title="Фоновый сервис" />
 
     </PreferenceCategory>
 

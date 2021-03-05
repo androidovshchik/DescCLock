@@ -37,7 +37,7 @@ class ForegroundService : Service() {
         startForeground(
             Int.MAX_VALUE, NotificationCompat.Builder(applicationContext, "foreground")
                 .setSmallIcon(R.drawable.ic_alarm_time)
-                .setContentTitle("Фоновой сервис")
+                .setContentTitle("Фоновый сервис")
                 .setContentIntent(pendingActivityFor<DeskClock>())
                 .setPriority(NotificationCompat.PRIORITY_MIN)
                 .setCategory(Notification.CATEGORY_SERVICE)

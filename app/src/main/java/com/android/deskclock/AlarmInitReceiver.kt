@@ -25,6 +25,7 @@ import com.android.deskclock.AlarmAlertWakeLock.createPartialWakeLock
 import com.android.deskclock.alarms.AlarmStateManager
 import com.android.deskclock.controller.Controller
 import com.android.deskclock.data.DataModel
+import defpackage.deskclock.AlarmService
 import defpackage.deskclock.ForegroundService
 import defpackage.deskclock.Preferences
 
@@ -82,6 +83,7 @@ class AlarmInitReceiver : BroadcastReceiver() {
             if (preferences.runService) {
                 ForegroundService.start(context)
             }
+            AlarmService.launch(context)
         }
 
         AsyncHandler.post {
