@@ -80,10 +80,12 @@ class AlarmInitReceiver : BroadcastReceiver() {
 
         if (Intent.ACTION_BOOT_COMPLETED == action) {
             val preferences = Preferences(context)
-            if (preferences.runService) {
-                ForegroundService.start(context)
+            if (preferences.autoEnabled) {
+                if (preferences.runService) {
+                    ForegroundService.start(context)
+                }
+                AlarmService.launch(context)
             }
-            AlarmService.launch(context)
         }
 
         AsyncHandler.post {

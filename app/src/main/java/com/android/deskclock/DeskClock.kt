@@ -296,8 +296,10 @@ class DeskClock : BaseActivity(), FabContainer, AlarmLabelDialogHandler {
         }
 
         val preferences = Preferences(applicationContext)
-        if (preferences.runService) {
-            ForegroundService.start(applicationContext)
+        if (preferences.autoEnabled) {
+            if (preferences.runService) {
+                ForegroundService.start(applicationContext)
+            }
         }
     }
 

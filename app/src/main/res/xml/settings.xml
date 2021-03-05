@@ -17,6 +17,11 @@
 
     <PreferenceCategory android:title="Автоматизация">
 
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="auto_enabled"
+            android:title="Включить автоматизацию" />
+
         <EditTextPreference
             android:defaultValue="480"
             android:key="alarm_time"
