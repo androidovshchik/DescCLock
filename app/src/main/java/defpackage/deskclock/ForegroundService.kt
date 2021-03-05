@@ -61,8 +61,8 @@ class ForegroundService : Service() {
 
     companion object {
 
-        fun start(context: Context?) {
-            context?.run {
+        fun start(context: Context) {
+            with(context) {
                 ContextCompat.startForegroundService(
                     applicationContext,
                     intentFor<ForegroundService>()
@@ -70,8 +70,8 @@ class ForegroundService : Service() {
             }
         }
 
-        fun stop(context: Context?) {
-            context?.run {
+        fun stop(context: Context) {
+            with(context) {
                 stopService(intentFor<ForegroundService>())
             }
         }

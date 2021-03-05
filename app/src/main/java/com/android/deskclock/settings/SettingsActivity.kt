@@ -117,34 +117,39 @@ class SettingsActivity : BaseActivity() {
             val preferences = Preferences(requireContext())
             autoEnabled?.setOnPreferenceChangeListener { _, newValue ->
                 preferences.autoEnabled = newValue == true
-                val context = context
-                if (newValue == true && preferences.runService) {
-                    ForegroundService.start(context)
-                } else {
-                    ForegroundService.stop(context)
-                }
-                if (newValue != true && context != null) {
-                    val id = preferences.alarmId
-                    doAsync {
-                        AlarmStateManager.deleteAllInstances(context.applicationContext, id)
-                        Alarm.deleteAlarm(context.contentResolver, id)
+                context?.run {
+                    if (newValue == true && preferences.runService) {
+                        ForegroundService.start(applicationContext)
+                    } else {
+                        ForegroundService.stop(applicationContext)
+                    }
+                    if (newValue != true) {
+                        val id = preferences.alarmId
+                        doAsync {
+                            AlarmStateManager.deleteAllInstances(applicationContext, id)
+                            Alarm.deleteAlarm(contentResolver, id)
+                        }
+                    } else {
+                        AlarmService.launch(applicationContext)
                     }
                 }
                 true
             }
             alarmTime?.setOnPreferenceChangeListener { _, newValue ->
                 preferences.alarmTime = newValue.toString().toLongOrNull() ?: 480
-                context?.let {
-                    AlarmService.launch(it)
+                context?.run {
+                    AlarmService.launch(applicationContext)
                 }
                 true
             }
             runService?.setOnPreferenceChangeListener { _, newValue ->
                 preferences.runService = newValue == true
-                if (newValue == true) {
-                    ForegroundService.start(context)
-                } else {
-                    ForegroundService.stop(context)
+                context?.run {
+                    if (newValue == true) {
+                        ForegroundService.start(applicationContext)
+                    } else {
+                        ForegroundService.stop(applicationContext)
+                    }
                 }
                 true
             }
