@@ -34,14 +34,11 @@ import com.android.deskclock.Utils
 import com.android.deskclock.actionbarmenu.MenuItemControllerFactory
 import com.android.deskclock.actionbarmenu.NavUpMenuItemController
 import com.android.deskclock.actionbarmenu.OptionsMenuManager
-import com.android.deskclock.alarms.AlarmStateManager
 import com.android.deskclock.data.DataModel
-import com.android.deskclock.provider.Alarm
 import com.android.deskclock.ringtone.RingtonePickerActivity
 import defpackage.deskclock.AlarmService
 import defpackage.deskclock.ForegroundService
 import defpackage.deskclock.Preferences
-import org.jetbrains.anko.doAsync
 
 /**
  * Settings for the Alarm Clock.
@@ -118,19 +115,15 @@ class SettingsActivity : BaseActivity() {
             autoEnabled?.setOnPreferenceChangeListener { _, newValue ->
                 preferences.autoEnabled = newValue == true
                 context?.run {
+                    if (newValue == true) {
+                        AlarmService.launch(applicationContext)
+                    } else {
+                        AlarmService.launch(applicationContext, true)
+                    }
                     if (newValue == true && preferences.runService) {
                         ForegroundService.start(applicationContext)
                     } else {
                         ForegroundService.stop(applicationContext)
-                    }
-                    if (newValue != true) {
-                        val id = preferences.alarmId
-                        doAsync {
-                            AlarmStateManager.deleteAllInstances(applicationContext, id)
-                            Alarm.deleteAlarm(contentResolver, id)
-                        }
-                    } else {
-                        AlarmService.launch(applicationContext)
                     }
                 }
                 true

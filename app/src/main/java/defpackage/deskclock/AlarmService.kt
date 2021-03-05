@@ -4,6 +4,7 @@ import android.app.job.JobInfo
 import android.app.job.JobParameters
 import android.app.job.JobService
 import android.content.Context
+import android.os.PersistableBundle
 import com.android.deskclock.R
 import com.android.deskclock.alarms.AlarmStateManager
 import com.android.deskclock.data.Weekdays
@@ -33,13 +34,15 @@ class AlarmService : JobService() {
             // deleting previous alarm
             AlarmStateManager.deleteAllInstances(applicationContext, id)
             Alarm.deleteAlarm(contentResolver, id)
-            // creating next alarm
-            Events.sendAlarmEvent(R.string.action_create, R.string.label_deskclock)
-            val newAlarm = Alarm.addAlarm(contentResolver, alarm)
-            preferences.alarmId = alarm.id
-            var newInstance = newAlarm.createInstanceAfter(Calendar.getInstance())
-            newInstance = AlarmInstance.addInstance(contentResolver, newInstance)
-            AlarmStateManager.registerInstance(applicationContext, newInstance, true)
+            if (!params.extras.getBoolean("deleteOnly")) {
+                // creating next alarm
+                Events.sendAlarmEvent(R.string.action_create, R.string.label_deskclock)
+                val newAlarm = Alarm.addAlarm(contentResolver, alarm)
+                preferences.alarmId = alarm.id
+                var newInstance = newAlarm.createInstanceAfter(Calendar.getInstance())
+                newInstance = AlarmInstance.addInstance(contentResolver, newInstance)
+                AlarmStateManager.registerInstance(applicationContext, newInstance, true)
+            }
             jobFinished(params, false)
         }
         return true
@@ -52,10 +55,13 @@ class AlarmService : JobService() {
 
     companion object {
 
-        fun launch(context: Context) {
+        fun launch(context: Context, deleteOnly: Boolean = false) {
             with(context) {
                 val job = JobInfo.Builder(100, component<AlarmService>()).run {
                     setOverrideDeadline(0)
+                    setExtras(PersistableBundle().apply {
+                        putBoolean("deleteOnly", deleteOnly)
+                    })
                     build()
                 }
                 jobScheduler.schedule(job)
