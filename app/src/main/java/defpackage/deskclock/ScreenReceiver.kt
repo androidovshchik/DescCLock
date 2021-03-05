@@ -12,8 +12,10 @@ class ScreenReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         val preferences = Preferences(context)
-        if (!preferences.runService || isManualRegistered) {
-            AlarmService.launch(context)
+        if (preferences.autoEnabled) {
+            if (!preferences.runService || isManualRegistered) {
+                AlarmService.launch(context)
+            }
         }
     }
 }

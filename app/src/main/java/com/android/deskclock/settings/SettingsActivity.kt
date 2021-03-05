@@ -36,6 +36,7 @@ import com.android.deskclock.actionbarmenu.NavUpMenuItemController
 import com.android.deskclock.actionbarmenu.OptionsMenuManager
 import com.android.deskclock.data.DataModel
 import com.android.deskclock.ringtone.RingtonePickerActivity
+import defpackage.deskclock.AlarmService
 import defpackage.deskclock.ForegroundService
 import defpackage.deskclock.Preferences
 
@@ -102,6 +103,7 @@ class SettingsActivity : BaseActivity() {
         override fun onCreatePreferences(bundle: Bundle?, rootKey: String?) {
             getPreferenceManager().setStorageDeviceProtected()
             addPreferencesFromResource(R.xml.settings)
+            val autoEnabled = findPreference<SwitchPreferenceCompat>("auto_enabled")
             val alarmTime = findPreference<EditTextPreference>("alarm_time")
             val runService = findPreference<SwitchPreferenceCompat>("run_service")
             alarmTime?.setOnBindEditTextListener {
@@ -110,8 +112,20 @@ class SettingsActivity : BaseActivity() {
                 it.setSelection(it.text.length)
             }
             val preferences = Preferences(requireContext())
+            autoEnabled?.setOnPreferenceChangeListener { _, newValue ->
+                preferences.autoEnabled = newValue == true
+                if (newValue == true && preferences.runService) {
+                    ForegroundService.start(context)
+                } else {
+                    ForegroundService.stop(context)
+                }
+                true
+            }
             alarmTime?.setOnPreferenceChangeListener { _, newValue ->
                 preferences.alarmTime = newValue.toString().toLong()
+                context?.let {
+                    AlarmService.launch(it)
+                }
                 true
             }
             runService?.setOnPreferenceChangeListener { _, newValue ->

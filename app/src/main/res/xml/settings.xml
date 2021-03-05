@@ -20,16 +20,18 @@
         <SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="auto_enabled"
-            android:title="Включить автоматизацию" />
+            android:title="Разрешить работу" />
 
         <EditTextPreference
             android:defaultValue="480"
+            android:dependency="auto_enabled"
             android:key="alarm_time"
             android:summary="По-умолчанию, 8 * 60 минут"
             android:title="Время до срабатывания" />
 
         <SwitchPreferenceCompat
             android:defaultValue="false"
+            android:dependency="auto_enabled"
             android:key="run_service"
             android:summary="Если не работает из коробки"
             android:title="Фоновый сервис" />
