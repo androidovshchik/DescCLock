@@ -122,7 +122,7 @@ class SettingsActivity : BaseActivity() {
                 true
             }
             alarmTime?.setOnPreferenceChangeListener { _, newValue ->
-                preferences.alarmTime = newValue.toString().toLong()
+                preferences.alarmTime = newValue.toString().toLongOrNull() ?: 480
                 context?.let {
                     AlarmService.launch(it)
                 }
