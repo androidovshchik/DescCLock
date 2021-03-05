@@ -40,10 +40,8 @@ class AlarmService : JobService() {
             // deleting previous alarm
             AlarmStateManager.deleteAllInstances(applicationContext, id)
             Alarm.deleteAlarm(contentResolver, id)
-            if (reserveEnabled) {
-                AlarmStateManager.deleteAllInstances(applicationContext, reserveId)
-                Alarm.deleteAlarm(contentResolver, reserveId)
-            }
+            AlarmStateManager.deleteAllInstances(applicationContext, reserveId)
+            Alarm.deleteAlarm(contentResolver, reserveId)
             if (!params.extras.getBoolean("deleteOnly")) {
                 // creating next alarm
                 Events.sendAlarmEvent(R.string.action_create, R.string.label_deskclock)
