@@ -7,7 +7,6 @@ import android.content.Context
 import android.os.PersistableBundle
 import com.android.deskclock.R
 import com.android.deskclock.alarms.AlarmStateManager
-import com.android.deskclock.data.Weekdays
 import com.android.deskclock.events.Events
 import com.android.deskclock.provider.Alarm
 import com.android.deskclock.provider.AlarmInstance
@@ -22,26 +21,49 @@ class AlarmService : JobService() {
 
     override fun onStartJob(params: JobParameters): Boolean {
         val preferences = Preferences(applicationContext)
-        val time = LocalTime.now().plusMinutes(preferences.alarmTime)
+        var time = LocalTime.now().plusMinutes(preferences.alarmTime)
         val alarm = Alarm(time.hour, time.minute).apply {
-            label = "Автоматический будильник"
-            daysOfWeek = Weekdays.ALL
+            label = "Основной будильник"
             enabled = true
             deleteAfterUse = true
         }
-        val id = preferences.alarmId
+        time = time.plusMinutes(preferences.reserveTime)
+        val alarmReserve = Alarm(time.hour, time.minute).apply {
+            label = "Резервный будильник"
+            enabled = true
+            deleteAfterUse = true
+        }
+        val id = preferences._alarmId
+        val reserveId = preferences._reserveId
+        val reserveEnabled = preferences.reserveEnabled
         future = doAsync {
             // deleting previous alarm
             AlarmStateManager.deleteAllInstances(applicationContext, id)
             Alarm.deleteAlarm(contentResolver, id)
+            if (reserveEnabled) {
+                AlarmStateManager.deleteAllInstances(applicationContext, reserveId)
+                Alarm.deleteAlarm(contentResolver, reserveId)
+            }
             if (!params.extras.getBoolean("deleteOnly")) {
                 // creating next alarm
                 Events.sendAlarmEvent(R.string.action_create, R.string.label_deskclock)
-                val newAlarm = Alarm.addAlarm(contentResolver, alarm)
-                preferences.alarmId = alarm.id
-                var newInstance = newAlarm.createInstanceAfter(Calendar.getInstance())
-                newInstance = AlarmInstance.addInstance(contentResolver, newInstance)
+                var newAlarm = Alarm.addAlarm(contentResolver, alarm)
+                preferences._alarmId = alarm.id
+                var newInstance = AlarmInstance.addInstance(
+                    contentResolver,
+                    newAlarm.createInstanceAfter(Calendar.getInstance())
+                )
                 AlarmStateManager.registerInstance(applicationContext, newInstance, true)
+                if (reserveEnabled) {
+                    Events.sendAlarmEvent(R.string.action_create, R.string.label_deskclock)
+                    newAlarm = Alarm.addAlarm(contentResolver, alarmReserve)
+                    preferences._reserveId = alarmReserve.id
+                    newInstance = AlarmInstance.addInstance(
+                        contentResolver,
+                        newAlarm.createInstanceAfter(Calendar.getInstance())
+                    )
+                    AlarmStateManager.registerInstance(applicationContext, newInstance, true)
+                }
             }
             jobFinished(params, false)
         }

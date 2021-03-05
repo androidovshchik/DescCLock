@@ -32,6 +32,19 @@
         <SwitchPreferenceCompat
             android:defaultValue="false"
             android:dependency="auto_enabled"
+            android:key="reserve_enabled"
+            android:title="Создавать резерв" />
+
+        <EditTextPreference
+            android:defaultValue="5"
+            android:dependency="reserve_enabled"
+            android:key="reserve_time"
+            android:summary="По-умолчанию, 5 минут"
+            android:title="Время до резерва" />
+
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:dependency="auto_enabled"
             android:key="run_service"
             android:summary="Если не работает из коробки"
             android:title="Фоновый сервис" />

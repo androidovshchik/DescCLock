@@ -39,6 +39,7 @@ import com.android.deskclock.ringtone.RingtonePickerActivity
 import defpackage.deskclock.AlarmService
 import defpackage.deskclock.ForegroundService
 import defpackage.deskclock.Preferences
+import kotlin.math.max
 
 /**
  * Settings for the Alarm Clock.
@@ -105,8 +106,15 @@ class SettingsActivity : BaseActivity() {
             addPreferencesFromResource(R.xml.settings)
             val autoEnabled = findPreference<SwitchPreferenceCompat>("auto_enabled")
             val alarmTime = findPreference<EditTextPreference>("alarm_time")
+            val reserveEnabled = findPreference<SwitchPreferenceCompat>("reserve_enabled")
+            val reserveTime = findPreference<EditTextPreference>("reserve_time")
             val runService = findPreference<SwitchPreferenceCompat>("run_service")
             alarmTime?.setOnBindEditTextListener {
+                it.inputType = InputType.TYPE_CLASS_NUMBER
+                it.keyListener = DigitsKeyListener.getInstance("0123456789")
+                it.setSelection(it.text.length)
+            }
+            reserveTime?.setOnBindEditTextListener {
                 it.inputType = InputType.TYPE_CLASS_NUMBER
                 it.keyListener = DigitsKeyListener.getInstance("0123456789")
                 it.setSelection(it.text.length)
@@ -128,8 +136,22 @@ class SettingsActivity : BaseActivity() {
                 }
                 true
             }
+            reserveEnabled?.setOnPreferenceChangeListener { _, newValue ->
+                preferences.reserveEnabled = newValue == true
+                context?.run {
+                    AlarmService.launch(applicationContext)
+                }
+                true
+            }
             alarmTime?.setOnPreferenceChangeListener { _, newValue ->
-                preferences.alarmTime = newValue.toString().toLongOrNull() ?: 480
+                preferences.alarmTime = max(1L, newValue.toString().toLongOrNull() ?: 480L)
+                context?.run {
+                    AlarmService.launch(applicationContext)
+                }
+                true
+            }
+            reserveTime?.setOnPreferenceChangeListener { _, newValue ->
+                preferences.reserveTime = max(1L, newValue.toString().toLongOrNull() ?: 5L)
                 context?.run {
                     AlarmService.launch(applicationContext)
                 }
