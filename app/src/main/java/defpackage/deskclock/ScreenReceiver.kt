@@ -8,7 +8,12 @@ import android.content.Intent
 @SuppressLint("UnsafeProtectedBroadcastReceiver")
 class ScreenReceiver : BroadcastReceiver() {
 
+    var isManualRegistered = false
+
     override fun onReceive(context: Context, intent: Intent) {
-        AlarmService.launch(context)
+        val preferences = Preferences(context)
+        if (!preferences.runService || isManualRegistered) {
+            AlarmService.launch(context)
+        }
     }
 }

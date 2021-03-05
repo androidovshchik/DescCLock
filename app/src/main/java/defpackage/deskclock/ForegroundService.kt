@@ -17,7 +17,9 @@ import org.jetbrains.anko.notificationManager
 
 class ForegroundService : Service() {
 
-    private val receiver = ScreenReceiver()
+    private val receiver = ScreenReceiver().apply {
+        isManualRegistered = true
+    }
 
     override fun onBind(intent: Intent): IBinder? = null
 
