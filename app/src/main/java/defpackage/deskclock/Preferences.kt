@@ -14,7 +14,7 @@ class Preferences(context: Context) : KotprefModel(context) {
 
     var alarmTime by longPref(480L, "alarm_time")
 
-    var reserveEnabled by booleanPref(true, "reserve_enabled")
+    var reserveEnabled by booleanPref(false, "reserve_enabled")
 
     var reserveTime by longPref(5L, "reserve_time")
 

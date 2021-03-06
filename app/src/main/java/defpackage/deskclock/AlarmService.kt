@@ -25,12 +25,14 @@ class AlarmService : JobService() {
         val alarm = Alarm(time.hour, time.minute).apply {
             label = "Основной будильник"
             enabled = true
+            vibrate = false
             deleteAfterUse = true
         }
         time = time.plusMinutes(preferences.reserveTime)
         val alarmReserve = Alarm(time.hour, time.minute).apply {
             label = "Резервный будильник"
             enabled = true
+            vibrate = false
             deleteAfterUse = true
         }
         val id = preferences._alarmId

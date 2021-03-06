@@ -21,7 +21,6 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.content.Intent
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.text.format.DateUtils
@@ -288,10 +287,7 @@ class DeskClock : BaseActivity(), FabContainer, AlarmLabelDialogHandler {
 
         if (!powerManager.isIgnoringBatteryOptimizations(packageName)) {
             startActivityForResult(
-                Intent(
-                    Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
-                    Uri.fromParts("package", packageName, null)
-                ), 100
+                Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS), 100
             )
         }
 
